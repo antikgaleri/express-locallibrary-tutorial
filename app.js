@@ -24,7 +24,14 @@ var app = express();
 // mongodb
 const mongoose = require('mongoose');
 //const mongodb  = 'mongodb://127.0.0.1/local_library';
-const mongodb  = 'mongodb+srv://db_credor:123123aA@cluster123.bibnr.mongodb.net/local_library?retryWrites=true&w=majority';
+
+// 
+const dev_db_url = 'mongodb+srv://db_credor:123123aA@cluster123.bibnr.mongodb.net/local_library?retryWrites=true&w=majority';
+
+const mongodb  = process.env.MONGODB_URI || dev_db_url;
+
+
+
 mongoose.connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'mongodb connection error'));
